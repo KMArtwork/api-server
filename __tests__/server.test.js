@@ -6,6 +6,8 @@ const request = supertest(server.app)
 
 describe('Testing if server sends back proper responses & status codes', () => {
 
+  // jest.setTimeout(20000);
+
   test('Should send a 404 on a bad route', async () => {
     const response = await request.get("/person")
     expect(response.status).toEqual(404);
@@ -16,28 +18,53 @@ describe('Testing if server sends back proper responses & status codes', () => {
     expect(response.status).toEqual(404);
   })
 
-  test('Should send a 200 when a Food item is successfully created and added to database', async () => {
-    // const req = {
-    //   "name": "Salad",
-    //   "type": "Elven",
-    //   "flavors": "Nature",
-    //   "canBeSpicy": false,
-    //   "hotOrCold": "who cares"
-    // };
-    // const res = {};
-    // const next = jest.fn();
-    const response = await request.post('/food')
+  test('Should send a 201 on a successful POST, creating one', async () => {
+    const req = {
+      name: "Salad",
+      type: "Elven",
+      flavors: "Nature",
+      canBeSpicy: false,
+      hotOrCold: "who cares"      
+    };
+    const response = await request.post('/food').send(req)
+    expect(response.status).toEqual(201);
+  })
+
+  test('Should send a 200 on a successful GET, reading all', async () => {
+    const response = await request.get("/food")
     expect(response.status).toEqual(200);
   })
 
-  xtest('Should send a 200 if the request is correctly formatted', async () => {
-    const response = await request.get("/person?name=Duder")
+  test('Should send a 200 on a successful GET, reading one', async () => {
+    const response = await request.get("/food/2")
     expect(response.status).toEqual(200);
   })
 
-  xtest('Should pass if response body is an object', async () => {
-    const response = await request.get("/person?name=El+Duderino")
-    expect(response.text).toBe(`{"name":"El Duderino"}`)
+  test('Should send a 200 on a successful DELETE', async () => {
+    const response = await request.delete("/food/2")
+    expect(response.status).toBe(200)
+  })
+
+  test('Should send a 200 on a successful PUT', async () => {
+    const req = {
+      name: "Poutine",
+      type: "Canadian",
+      flavors: "Savory",
+      canBeSpicy: false,
+      hotOrCold: "hot"      
+    };
+    const response = await request.put("/food/11").send(req)
+    expect(response.status).toBe(200)
+  })
+
+  test('Should send a 200 on a successful PATCH', async () => {
+    const req = {
+      name: "Quesadilla",
+      type: "Mexican",
+      flavors: "Cheese",    
+    };
+    const response = await request.patch("/food/13").send(req)
+    expect(response.status).toBe(200)
   })
 
 })
