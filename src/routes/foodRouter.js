@@ -9,26 +9,26 @@ const { Food } = require('../models/foodModel');
 // creates one Food entry and adds it to the SQL database
 const createFood = async (request, response, next) => {
   const newFood = await Food.create(request.body);
-  response.json(newFood);
+  response.status(201).json(newFood);
 }
 
 // returns all Food entries in the SQL database
 const readAllFood = async (request, response, next) => {
   let foodData = await Food.findAll();
-  response.json(foodData)
+  response.status(200).json(foodData)
 }
 
 // returns one Food entry in the SQL database
 const readOneFood = async (request, response, next) => {
   let foodData = await Food.findOne({where: {id: request.params.id}});
-  response.json(foodData)
+  response.status(200).json(foodData)
 }
 
 // finds one Food entry in the SQL database, and updates/changes the whole entry
 const replaceFood = async (request, response, next) => {
   let foodData = await Food.findOne({where: {id: request.params.id}});
   await foodData.update(request.body);
-  response.json(foodData)
+  response.status(200).json(foodData)
 }
 
 const updateFood = async (request, response, next) => {
@@ -39,7 +39,7 @@ const updateFood = async (request, response, next) => {
       await foodData.update({[key]: request.body[key]})
     }
   }
-  response.json(foodData);
+  response.status(200).json(foodData);
 }
 
 const deleteFood = async (request, response, next) => {
