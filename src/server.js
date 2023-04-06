@@ -18,11 +18,12 @@ const foodRouter = require('./routes/foodRouter')
 
 // uses these middlewares every time a request is made to the server
 app.use(cors());
-app.use(expres.json())
+app.use(express.json())
 app.use(logger);
 
 // uses router when any request is made to food route
-app.use('/food', validator, foodRouter);
+// app.use('/food', validator, foodRouter);
+app.use('/food', foodRouter)
 
 app.use(handle404);
 app.use(handle500);

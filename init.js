@@ -10,7 +10,7 @@ sequelize.sync()
   let initialSeed = await Food.create({
     name: 'Chicken Wings',
     type: 'American',
-    flavors: ['Buffalo', 'BBQ', 'Honey-Sriracha'],
+    flavors: 'Buffalo',
     canBeSpicy: true,
     hotOrCold: 'hot'
   })

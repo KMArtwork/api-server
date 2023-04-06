@@ -2,7 +2,7 @@
 
 require('dotenv').config(); // allows us to read from the .env
 const server = require('./src/server');
-const { sequelize } = require('./src/models/foods')
+const { sequelize } = require('./src/models/foodModel')
 
 sequelize.sync()
 .then(() => {

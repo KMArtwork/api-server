@@ -20,7 +20,7 @@ const Food = sequelize.define("Food", {
     allowNull: false,
   },
   flavors: {
-    type: DataTypes.ARRAY,
+    type: DataTypes.STRING,
     allowNull: false,
   },
   canBeSpicy: {

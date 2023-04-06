@@ -2,34 +2,63 @@
 
 const express = require('express');
 const router = express.Router();
+const { Food } = require('../models/foodModel');
+
+// CRUD Operations
+
+// creates one Food entry and adds it to the SQL database
+const createFood = async (request, response, next) => {
+  const newFood = await Food.create(request.body);
+  response.json(newFood);
+}
+
+// returns all Food entries in the SQL database
+const readAllFood = async (request, response, next) => {
+  let foodData = await Food.findAll();
+  response.json(foodData)
+}
+
+// returns one Food entry in the SQL database
+const readOneFood = async (request, response, next) => {
+  let foodData = await Food.findOne({where: {id: request.params.id}});
+  response.json(foodData)
+}
+
+// finds one Food entry in the SQL database, and updates/changes the whole entry
+const replaceFood = async (request, response, next) => {
+  let foodData = await Food.findOne({where: {id: request.params.id}});
+  await foodData.update(request.body);
+  response.json(foodData)
+}
+
+const updateFood = async (request, response, next) => {
+  let foodData = await Food.findOne({where: {id: request.params.id}});
+  for (const key in foodData.dataValues) {
+    // if key matches with a property on the request.body AND if the value of that property on the request.body is different than what is in the database - we update
+    if (foodData[key] !== request.body[key] && request.body[key]) {
+      await foodData.update({[key]: request.body[key]})
+    }
+  }
+  response.json(foodData);
+}
+
+const deleteFood = async (request, response, next) => {
+  let foodData = await Food.findOne({where: {id: request.params.id}});
+  if (foodData) {
+    await foodData.destroy()
+  }
+  response.status(200).send('Entry successfully removed from Database')
+}
 
 // Routes
 router.post('/', createFood)
 
-router.get('/', readFood)
-router.get('/:id', readFood)
+router.get('/', readAllFood)
+router.get('/:id', readOneFood)
 
-router.put('/:id', updateFood)
+router.put('/:id', replaceFood)
 router.patch('/:id', updateFood)
 
 router.delete('/:id', deleteFood)
-
-
-// CRUD Operations
-const createFood = (request, response, next) => {
-  console.log('creating food')
-}
-
-const readFood = (request, response, next) => {
-  console.log('reading food')
-}
-
-const updateFood = (request, response, next) => {
-  console.log('updating food')
-}
-
-const deleteFood = (request, response, next) => {
-  console.log('deleting food')
-}
 
 module.exports = router;
