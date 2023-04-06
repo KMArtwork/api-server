@@ -41,7 +41,7 @@ describe('Testing if server sends back proper responses & status codes', () => {
   })
 
   test('Should send a 200 on a successful DELETE', async () => {
-    const response = await request.delete("/food/2")
+    const response = await request.delete("/food/18")
     expect(response.status).toBe(200)
   })
 
