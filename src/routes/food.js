@@ -6,7 +6,7 @@ const router = express.Router();
 // Routes
 router.post('/', createFood)
 router.get('/', readFood)
-router.put('/', updateFood)
+router.put('/:id', updateFood)
 router.delete('/', deleteFood)
 
 
@@ -19,7 +19,7 @@ const readFood = (request, response, next) => {
   console.log('reading food')
 }
 
-const putFood = (request, response, next) => {
+const updateFood = (request, response, next) => {
   console.log('updating food')
 }
 
