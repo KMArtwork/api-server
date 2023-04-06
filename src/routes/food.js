@@ -5,9 +5,14 @@ const router = express.Router();
 
 // Routes
 router.post('/', createFood)
+
 router.get('/', readFood)
+router.get('/:id', readFood)
+
 router.put('/:id', updateFood)
-router.delete('/', deleteFood)
+router.patch('/:id', updateFood)
+
+router.delete('/:id', deleteFood)
 
 
 // CRUD Operations
