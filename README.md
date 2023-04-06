@@ -6,7 +6,7 @@ URL: https://api-server-vjwr.onrender.com
 
 Endpoint: /food
 
-Example: https://basic-express-server-y020.onrender.com/food
+Example: https://api-server-vjwr.onrender.com/food
 
 ## UML Architecture
 
