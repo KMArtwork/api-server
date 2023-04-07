@@ -3,13 +3,13 @@
 const express = require('express');
 const router = express.Router();
 
-const { Team, Teammate } = require('../models/index')
+const { Teammate, Team } = require('../models/index')
 
 // Routes
 router.post('/', async (request, response, next) => {
   try {
-    let newTeam = await Team.create(request.body);
-    response.send(newTeam)
+    let newTeammate = await Teammate.create(request.body);
+    response.send(newTeammate)
   } 
   catch (err) {
     console.error('ROUTER ERROR > Unable to CREATE new database entry ', err)
@@ -18,7 +18,7 @@ router.post('/', async (request, response, next) => {
 
 router.get('/', async (request, response, next) => {
   try {
-    let dbData = await Team.read();
+    let dbData = await Teammate.read();
     response.send(dbData)
   }
   catch (err) {
@@ -29,10 +29,10 @@ router.get('/', async (request, response, next) => {
 
 router.get('/:id', async (request, response, next) => {
   try {
-    let foundTeam = await Team.read(request.params.id, {
-      include: Teammate.dbModel
+    let foundTeammate = await Teammate.read(request.params.id, {
+      include: Team.dbModel
     });
-    response.send(foundTeam)
+    response.send(foundTeammate)
   }
   catch (err) {
     console.error('ROUTER ERROR > Unable to READ single database entry ', err)
@@ -42,8 +42,8 @@ router.get('/:id', async (request, response, next) => {
 
 router.put('/:id', async (request, response, next) => {
   try {
-    let updatedTeam = await Team.update(request.params.id, request.body);
-    response.send(updatedTeam)
+    let updatedTeammate = await Teammate.update(request.params.id, request.body);
+    response.send(updatedTeammate)
   }
   catch (err) {
     console.error('ROUTER ERROR > Unable to UPDATE database entry ', err)
@@ -55,7 +55,7 @@ router.put('/:id', async (request, response, next) => {
 
 router.delete('/:id', async (request, response, next) => {
   try {
-    let isDeleted = await Team.delete(request.params.id);
+    let isDeleted = await Teammate.delete(request.params.id);
     response.status(200).send(isDeleted)
   }
   catch (err) {

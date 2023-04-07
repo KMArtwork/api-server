@@ -24,7 +24,7 @@ const teammateModel = teammate(sequelize);
 teamModel.hasMany(teammateModel, {foreignKey: 'teamId', sourceKey: 'id'});
 
 // reaffirms that one-to-many relationship between the team and the teammate tables. Defines the foreign key on the teammate data model as 'teamId' which references the 'id' field of the team table
-teammateModel.belondsTo(teamModel, {foreignKey: 'teamId', targetKey: 'id'});
+teammateModel.belongsTo(teamModel, {foreignKey: 'teamId', targetKey: 'id'});
 
 module.exports = {
   // exports the instantiated sequelize ORM

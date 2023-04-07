@@ -3,7 +3,7 @@
 'use strict'
 
 const { sequelize, Food } = require('./src/models/foodModel');
-const { sequelize2, Team, Teammate } = require('./src/models/index')
+const { sequelize : sequelize2, Team, Teammate } = require('./src/models/index')
 
 let teamSeedId;
 
@@ -26,6 +26,8 @@ sequelize2.sync()
       role: 'Red Ranger',
       teamId: teamSeedId,
     })
+
+    console.log('Teammate Database seeded with ', teammateSeed)
 
   })
   .catch(error => console.error(error))

@@ -12,13 +12,14 @@ class Collection {
       return await this.dbModel.create(modelData)
     }
     catch (error) {
-      console.error('Cannot Create DB Entry', error)
+      console.error('COLLECTION ERROR > Cannot Create DB Entry', error)
     }
   }
 
   read = async (id, findOptions) => {
     try {
       if (id) {
+        console.log(findOptions);
         return await this.dbModel.findOne({where: {id}, ...findOptions})
       }
       else {
@@ -26,30 +27,32 @@ class Collection {
       }
     }
     catch (error) {
-      console.error('Cannot Read DB Entry', error)
+      console.error('COLLECTION ERROR > Cannot Read DB Entry', error)
     }
   }
 
   update = async (id, modelData) => {
     try {
-      return await this.model.update(
+      await this.dbModel.update(
         modelData,
         { where: {id}}
       )
+      return await this.dbModel.findOne({where: {id}})
     }
     catch (error) {
-      console.error('Cannot Update DB Entry', error)
+      console.error('COLLECTION ERROR > Cannot Update DB Entry', error)
     }
   }
 
   delete  = async (id) => {
     try {
-      return await this.dbModel.destroy({
+      await this.dbModel.destroy({
         where: {id}
       })
+      return 'Entry successfully deleted';
     }
     catch (error) {
-      console.error('Cannot Delete DB Entry', error)
+      console.error('COLLECTION ERROR > Cannot Delete DB Entry', error)
     }
   }
 }
